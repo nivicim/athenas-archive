@@ -1,0 +1,37 @@
+/* wwwroot/css/app.css */
+
+/* Estilos globais para html e body, conforme sugerido no MainLayout.razor.css */
+html {
+    height: 100%; /* Garante que o html ocupe toda a altura */
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #EEEEEE; /* Cor mais clara da paleta para o fundo geral */
+    color: #222831; /* Cor mais escura para texto principal */
+    margin: 0; /* Remove margens padrão do body */
+    min-height: 100%; /* Garante que o body ocupe toda a altura junto com html */
+    display: flex; /* Permite que o .page-container dentro dele use flex-direction: column corretamente */
+    flex-direction: column;
+}
+
+/* Para o blazor-error-ui (estilo básico) - caso não esteja usando o padrão do template */
+#blazor-error-ui {
+    background: lightyellow;
+    bottom: 0;
+    box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
+    display: none; /* O Blazor mostra isso quando necessário */
+    left: 0;
+    padding: 0.6rem 1.25rem 0.7rem 1.25rem;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+    #blazor-error-ui .dismiss {
+        cursor: pointer;
+        position: absolute;
+        right: 0.75rem;
+        top: 0.5rem;
+    }
+
