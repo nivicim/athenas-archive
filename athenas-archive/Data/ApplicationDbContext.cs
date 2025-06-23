@@ -1,4 +1,6 @@
-﻿using athenas_archive.Entities;
+﻿
+using athenas_archive.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 public class ApplicationDbContext : DbContext
@@ -59,5 +61,73 @@ public class ApplicationDbContext : DbContext
                   .WithMany(t => t.TopicoTags)
                   .HasForeignKey(tt => tt.TagId);
         });
+
+        var seedDate = new DateTime(2025, 6, 22, 20, 30, 0, DateTimeKind.Utc);
+
+        // 1. Popular a tabela de Roles
+        modelBuilder.Entity<Role>().HasData(
+            new Role { Id = 1, Nome = "Aluno" },
+            new Role { Id = 2, Nome = "Moderador" },
+            new Role { Id = 3, Nome = "Admin" }
+        );
+
+        // 2. Popular a tabela de Categorias
+        modelBuilder.Entity<Categoria>().HasData(
+            new Categoria { Id = 1, Nome = "Programação", Descricao = "Discussões sobre linguagens, algoritmos e desenvolvimento de software.", DataCriacao = seedDate },
+            new Categoria { Id = 2, Nome = "Cálculo", Descricao = "Tópicos sobre limites, derivadas, integrais e aplicações.", DataCriacao = seedDate },
+            new Categoria { Id = 3, Nome = "Hardware", Descricao = "Discussões sobre componentes de computador, montagem e manutenção.", DataCriacao = seedDate }
+        );
+
+        // 3. Popular com Usuários Iniciais        
+        modelBuilder.Entity<Usuario>().HasData(
+            new Usuario
+            {
+                Id = 1,
+                Nome = "Admin User",
+                Email = "admin@email.com",
+                SenhaHash = "AQAAAAIAAYagAAAAEPhH/65zZtC4N9YtCqY9iE2n5xZ3zZ+yZ+e8w3c9X6b8V5n7f7j3X6n8Y7d9V6c3",
+                DataCriacao = seedDate,
+                Ativo = true,
+                Banido = false,
+                RoleId = 3 // Admin
+            },
+            new Usuario
+            {
+                Id = 2,
+                Nome = "Aluno Teste",
+                Email = "aluno@email.com",
+                SenhaHash = "AQAAAAIAAYagAAAAEJ5y/8f6zZtC4N9YtCqY9iE2n5xZ3zZ+yZ+e8w3c9X6b8V5n7f7j3X6n8Y7d9V6c4",
+                DataCriacao = seedDate,
+                Ativo = true,
+                Banido = false,
+                RoleId = 1 // Aluno
+            }
+        );
+
+        // 4. Popular com um Tópico Inicial
+        modelBuilder.Entity<Topico>().HasData(
+            new Topico
+            {
+                Id = 1,
+                Titulo = "Dúvida sobre ponteiros em C++",
+                Conteudo = "Olá pessoal, estou com dificuldade para entender como funcionam os ponteiros para ponteiros em C++. Alguém poderia me dar uma luz?",
+                DataCriacao = seedDate,
+                UsuarioId = 2, // Criado pelo "Aluno Teste"
+                CategoriaId = 1 // Na categoria "Programação"
+            }
+        );
+
+        // 5. Popular com uma Resposta Inicial
+        modelBuilder.Entity<Resposta>().HasData(
+            new Resposta
+            {
+                Id = 1,
+                Conteudo = "Claro! Um ponteiro para ponteiro armazena o endereço de memória de outro ponteiro. Pense nele como um 'índice' para seus 'índices' de memória.",
+                DataCriacao = seedDate,
+                UsuarioId = 1, // Respondido pelo "Admin User"
+                TopicoId = 1, // Resposta para o tópico acima
+                RespostaPaiId = null // É uma resposta direta ao tópico
+            }
+        );
     }
 }

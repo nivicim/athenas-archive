@@ -1,107 +1,17 @@
-/* Container da página principal no layout.
-   Garante que o layout ocupe toda a altura e permita que o rodapé
-   se fixe na parte inferior se o conteúdo for curto. */
+/* Estilos da estrutura principal do Layout */
 .page-container {
-    min-height: 100vh; /* Garante que o container tenha pelo menos a altura da viewport */
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
 
-/* Área de conteúdo principal (main + aside) deve crescer para preencher o espaço,
-   empurrando o rodapé para baixo. */
 .main-content-area {
     flex-grow: 1;
 }
 
-/* Estilos da paleta de cores (replicados do HTML original para referência, mas aplicados com classes Tailwind no .razor) */
-/* Se precisar de estilos que o Tailwind não cobre facilmente ou para organização: */
-
+/* Estilos de elementos que só existem no Layout */
 .header-main {
     background-color: #222831;
-    /* text-[#EEEEEE] já está via Tailwind no elemento */
-}
-
-.logo-icon svg {
-    /* width e height já via Tailwind */
-    fill: #00ADB5;
-}
-
-.button-login {
-    background-color: #393E46;
-    color: #EEEEEE; /* Tailwind: text-[#EEEEEE] */
-}
-
-    .button-login:hover {
-        background-color: #222831;
-    }
-
-.button-signup {
-    background-color: #00ADB5;
-    color: #EEEEEE; /* Tailwind: text-[#EEEEEE] */
-}
-
-    .button-signup:hover {
-        background-color: #008F95;
-    }
-
-.create-topic-button {
-    background-color: #00ADB5; /* Cor de destaque para o fundo */
-    color: #FFFFFF; /* Cor do texto (branco) */
-}
-
-    .create-topic-button:hover {
-        background-color: #008F95; /* Tom mais escuro para hover */
-    }
-
-.header-nav-link.active {
-    color: #00ADB5 !important;
-}
-
-/* Links de categoria na sidebar */
-.category-nav-link.active {
-    color: #00ADB5; /* Cor de destaque */
-    background-color: #e6fffa; /* Um fundo bem claro para destacar */
-    font-weight: 600; /* semi-bold */
-}
-
-
-.search-button {
-    background-color: #00ADB5;
-    color: #EEEEEE;
-}
-
-    .search-button:hover {
-        background-color: #008F95;
-    }
-
-.widget {
-    background-color: white;
-}
-
-.widget-title {
-    color: #222831;
-}
-
-.search-input {
-    border-color: #393E46; /* Tailwind: border-[#393E46] */
-}
-
-    .search-input:focus {
-        --tw-ring-color: #00ADB5; /* Tailwind: focus:ring-[#00ADB5] */
-        border-color: transparent; /* Para o anel do Tailwind aparecer corretamente */
-    }
-
-.category-link { /* Classe genérica para links de categoria, se não forem NavLink */
-    color: #393E46;
-}
-
-    .category-link:hover, .category-nav-link:not(.active):hover {
-        color: #00ADB5;
-        background-color: #f0f2f5; /* Um cinza um pouco mais claro que o body para hover discreto */
-    }
-
-.paragraph-text {
-    color: #393E46;
 }
 
 .footer-main {
@@ -109,11 +19,6 @@
     color: #EEEEEE;
 }
 
-.footer-link.active { /* Para links de rodapé se forem NavLink e estiverem ativos */
-    color: #00ADB5 !important;
+.logo-icon svg {
+    fill: #00ADB5;
 }
-
-.footer-link:not(.active):hover {
-    color: #00ADB5;
-}
-

@@ -1,0 +1,74 @@
+
+
+<PageTitle>Página Inicial - Athena's Archive</PageTitle>
+
+<div class="space-y-6">
+    <div class="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
+        <h1 class="text-3xl font-bold text-[#222831] text-center sm:text-left">Tópicos Recentes</h1>
+        <a href="/new-topic" class="create-topic-button font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition duration-150 flex items-center space-x-2 w-full sm:w-auto justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                <path d="M10.75 4.75a.75.75 0 0 0-1.5 0v4.5h-4.5a.75.75 0 0 0 0 1.5h4.5v4.5a.75.75 0 0 0 1.5 0v-4.5h4.5a.75.75 0 0 0 0-1.5h-4.5v-4.5Z" />
+            </svg>
+            <span>Criar Novo Tópico</span>
+        </a>
+    </div>
+
+    <!-- Exemplo de Tópico 1 -->
+    <article class="topic-card bg-white p-6 rounded-xl shadow-lg">
+        <div class="flex items-start sm:items-center mb-3 flex-col sm:flex-row">
+            <img src="https://placehold.co/40x40/00ADB5/EEEEEE?text=C" alt="Avatar do Utilizador" class="w-10 h-10 rounded-full mr-0 sm:mr-3 mb-2 sm:mb-0">
+            <div>
+                <h2 class="text-xl font-semibold"><a href="/topics/1" class="topic-title-link transition duration-150">Dúvidas sobre Cálculo I - Limites</a></h2>
+                <p class="text-sm meta-text">Postado por <span class="font-medium username-text">Carlos Silva</span> - <time datetime="2024-05-28">28 de Maio, 2024</time></p>
+            </div>
+        </div>
+        <p class="paragraph-text leading-relaxed mb-4">
+            Olá pessoal, estou com algumas dificuldades para entender o conceito de limites laterais em Cálculo I. Alguém poderia me ajudar com exemplos práticos ou indicar algum material?
+        </p>
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center text-sm meta-text gap-2">
+            <div class="flex space-x-4">
+                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 inline mr-1 icon-highlight"><path d="M9.653 16.915l-.005-.003-.019-.01a20.759 20.759 0 0 1-1.162-.682 22.045 22.045 0 0 1-2.582-1.9C4.045 12.733 2 10.352 2 7.5a4.5 4.5 0 0 1 8-2.828A4.5 4.5 0 0 1 18 7.5c0 2.852-2.044 5.233-3.885 6.82a22.049 22.049 0 0 1-3.744 2.582l-.019.01-.005.003h-.002a.739.739 0 0 1-.69.001l-.002-.001Z" /></svg>15 Curtidas</span>
+                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 inline mr-1 icon-highlight"><path fill-rule="evenodd" d="M2 5.25A3.25 3.25 0 0 1 5.25 2h9.5A3.25 3.25 0 0 1 18 5.25v7.5A3.25 3.25 0 0 1 14.75 16h-2.072l-1.604 1.203a.75.75 0 0 1-.948 0L8.522 16H5.25A3.25 3.25 0 0 1 2 12.75v-7.5Zm1.5 0V12.75c0 .966.784 1.75 1.75 1.75H8.25l1.004.753a.75.75 0 0 0 .942 0l1.004-.753h2.5a1.75 1.75 0 0 0 1.75-1.75v-7.5a1.75 1.75 0 0 0-1.75-1.75h-9.5a1.75 1.75 0 0 0-1.75 1.75Z" clip-rule="evenodd" /></svg>8 Respostas</span>
+            </div>
+            <span class="text-xs px-3 py-1 category-tag rounded-full mt-2 sm:mt-0">Cálculo I</span>
+        </div>
+    </article>
+
+    <!-- Exemplo de Tópico 2 -->
+    <article class="topic-card bg-white p-6 rounded-xl shadow-lg">
+        <div class="flex items-start sm:items-center mb-3 flex-col sm:flex-row">
+            <img src="https://placehold.co/40x40/00ADB5/EEEEEE?text=A" alt="Avatar do Utilizador" class="w-10 h-10 rounded-full mr-0 sm:mr-3 mb-2 sm:mb-0">
+            <div>
+                <h2 class="text-xl font-semibold"><a href="/topics/2" class="topic-title-link transition duration-150">Melhores práticas em Desenvolvimento Web com .NET 9</a></h2>
+                <p class="text-sm meta-text">Postado por <span class="font-medium username-text">Ana Beatriz</span> - <time datetime="2024-05-27">27 de Maio, 2024</time></p>
+            </div>
+        </div>
+        <p class="paragraph-text leading-relaxed mb-4">
+            Estou a iniciar um projeto com .NET 9 e Razor Pages, como descrito na proposta do fórum. Quais são as melhores práticas atuais para estrutura de projeto, segurança e performance?
+        </p>
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center text-sm meta-text gap-2">
+            <div class="flex space-x-4">
+                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 inline mr-1 icon-highlight"><path d="M9.653 16.915l-.005-.003-.019-.01a20.759 20.759 0 0 1-1.162-.682 22.045 22.045 0 0 1-2.582-1.9C4.045 12.733 2 10.352 2 7.5a4.5 4.5 0 0 1 8-2.828A4.5 4.5 0 0 1 18 7.5c0 2.852-2.044 5.233-3.885 6.82a22.049 22.049 0 0 1-3.744 2.582l-.019.01-.005.003h-.002a.739.739 0 0 1-.69.001l-.002-.001Z" /></svg>22 Curtidas</span>
+                <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 inline mr-1 icon-highlight"><path fill-rule="evenodd" d="M2 5.25A3.25 3.25 0 0 1 5.25 2h9.5A3.25 3.25 0 0 1 18 5.25v7.5A3.25 3.25 0 0 1 14.75 16h-2.072l-1.604 1.203a.75.75 0 0 1-.948 0L8.522 16H5.25A3.25 3.25 0 0 1 2 12.75v-7.5Zm1.5 0V12.75c0 .966.784 1.75 1.75 1.75H8.25l1.004.753a.75.75 0 0 0 .942 0l1.004-.753h2.5a1.75 1.75 0 0 0 1.75-1.75v-7.5a1.75 1.75 0 0 0-1.75-1.75h-9.5a1.75 1.75 0 0 0-1.75 1.75Z" clip-rule="evenodd" /></svg>12 Respostas</span>
+            </div>
+            <span class="text-xs px-3 py-1 category-tag rounded-full mt-2 sm:mt-0">Desenvolvimento Web</span>
+        </div>
+    </article>
+
+    <!-- Paginação (apenas visual por enquanto) -->
+    <nav aria-label="Paginação de Tópicos" class="mt-8">
+        <ul class="flex flex-wrap justify-center space-x-1 sm:space-x-2">
+            <li><a href="#" class="px-3 py-2 sm:px-4 sm:py-2 pagination-link bg-white text-[#393E46] rounded-lg transition block mb-1">Anterior</a></li>
+            <li><a href="#" class="px-3 py-2 sm:px-4 sm:py-2 pagination-current bg-[#00ADB5] text-[#EEEEEE] rounded-lg block mb-1">1</a></li>
+            <li><a href="#" class="px-3 py-2 sm:px-4 sm:py-2 pagination-link bg-white text-[#393E46] rounded-lg transition block mb-1">2</a></li>
+            <li><a href="#" class="px-3 py-2 sm:px-4 sm:py-2 pagination-link bg-white text-[#393E46] rounded-lg transition hidden sm:block mb-1">3</a></li>
+            <li><span class="px-3 py-2 sm:px-4 sm:py-2 meta-text hidden sm:block mb-1">...</span></li>
+            <li><a href="#" class="px-3 py-2 sm:px-4 sm:py-2 pagination-link bg-white text-[#393E46] rounded-lg transition hidden sm:block mb-1">10</a></li>
+            <li><a href="#" class="px-3 py-2 sm:px-4 sm:py-2 pagination-link bg-white text-[#393E46] rounded-lg transition block mb-1">Próximo</a></li>
+        </ul>
+    </nav>
+</div>
+
+@code {
+    // Lógica da página Index, se necessário
+}

@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Components.Authorization
+<!DOCTYPE html>
 <html lang="pt-BR">
 
 <head>
@@ -9,13 +10,16 @@
     <title>Athena's Archive</title> 
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/app.css" />
+    <link href="app.css" rel="stylesheet" />
     <link rel="stylesheet" href="athenas-archive.styles.css" />
     <HeadOutlet @rendermode="InteractiveServer" />
 </head>
 
 <body>
-    <Routes @rendermode="InteractiveServer" />
+    <CascadingAuthenticationState>
+        <Routes @rendermode="InteractiveServer" />
+    </CascadingAuthenticationState>
+    
     <script src="_framework/blazor.web.js"></script>
 </body>
 

@@ -1,7 +1,14 @@
 ﻿@inherits LayoutComponentBase
+@using Microsoft.AspNetCore.Components.Authorization
+@using System.Security.Claims
+@using athenas_archive.Auth
+
+
+@inject IJSRuntime JSRuntime
+@inject NavigationManager Navigation
+@inject AuthenticationStateProvider AuthStateProvider
 
 <div class="page-container">
-    @* Container geral para aplicar estilos de fundo e fonte globais *@
     <header class="header-main text-[#EEEEEE] shadow-md sticky top-0 z-50">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
@@ -16,51 +23,62 @@
                 <nav class="hidden md:flex space-x-6 items-center">
                     <NavLink href="/forums" class="header-nav-link hover:text-[#00ADB5] transition duration-150">Fóruns</NavLink>
                     <NavLink href="/about" class="header-nav-link hover:text-[#00ADB5] transition duration-150">Sobre</NavLink>
-                    @* Em uma aplicação real, estes seriam links para páginas de Autenticação *@
-                    <a href="authentication/login" class="button-login py-2 px-4 rounded-lg font-semibold transition duration-150">Login</a>
-                    <a href="authentication/register" class="button-signup py-2 px-4 rounded-lg font-semibold transition duration-150">Cadastre-se</a>
+
+                    <AuthorizeView>
+                        <Authorized>
+                            <span class="font-semibold">Olá, @context.User.FindFirst(ClaimTypes.Name)?.Value</span>
+                            <a href="javascript:void(0)" @onclick="Logout" class="button-login py-2 px-4 rounded-lg font-semibold transition duration-150">Sair</a>
+                        </Authorized>
+                        <NotAuthorized>
+                            <NavLink href="login" class="button-login py-2 px-4 rounded-lg font-semibold transition duration-150">Login</NavLink>
+                            <NavLink href="register" class="button-signup py-2 px-4 rounded-lg font-semibold transition duration-150">Cadastre-se</NavLink>
+                        </NotAuthorized>
+                    </AuthorizeView>
                 </nav>
-                <!-- Botão de Menu Mobile -->
                 <div class="md:hidden">
-                    <button @onclick="ToggleMobileMenu" id="mobile-menu-button-blazor" class="text-[#EEEEEE] focus:outline-none">
+                    <button @onclick="ToggleMobileMenu" class="text-[#EEEEEE] focus:outline-none">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
                     </button>
                 </div>
             </div>
         </div>
-        <!-- Menu Mobile (controlado por Blazor) -->
-        <div id="mobile-menu-blazor" class="@(_isMobileMenuOpen ? "" : "hidden") md:hidden bg-[#393E46] bg-opacity-95">
+        <div class="@(_isMobileMenuOpen ? "" : "hidden") md:hidden bg-[#393E46] bg-opacity-95">
             <NavLink href="/forums" @onclick="CloseMobileMenu" class="block py-3 px-4 text-sm hover:bg-[#222831] transition duration-150 text-[#EEEEEE]">Fóruns</NavLink>
             <NavLink href="/about" @onclick="CloseMobileMenu" class="block py-3 px-4 text-sm hover:bg-[#222831] transition duration-150 text-[#EEEEEE]">Sobre</NavLink>
-            <a href="authentication/login" @onclick="CloseMobileMenu" class="block py-3 px-4 text-sm hover:bg-[#222831] transition duration-150 text-[#EEEEEE]">Login</a>
-            <a href="authentication/register" @onclick="CloseMobileMenu" class="block py-3 px-4 text-sm hover:bg-[#222831] transition duration-150 text-[#EEEEEE]">Cadastre-se</a>
+
+            <AuthorizeView>
+                <Authorized>
+                    <div class="px-4 py-3 border-t border-gray-700">
+                        <p class="text-sm text-gray-400">Logado como:</p>
+                        <p class="font-semibold text-white">@context.User.Claims.FirstOrDefault(c => c.Type == "name")?.Value</p>
+                    </div>
+                    <a href="javascript:void(0)" @onclick="Logout" class="block py-3 px-4 text-sm hover:bg-[#222831] transition duration-150 text-[#EEEEEE]">Sair</a>
+                </Authorized>
+                <NotAuthorized>
+                    <NavLink href="login" @onclick="CloseMobileMenu" class="block py-3 px-4 text-sm hover:bg-[#222831] transition duration-150 text-[#EEEEEE]">Login</NavLink>
+                    <NavLink href="register" @onclick="CloseMobileMenu" class="block py-3 px-4 text-sm hover:bg-[#222831] transition duration-150 text-[#EEEEEE]">Cadastre-se</NavLink>
+                </NotAuthorized>
+            </AuthorizeView>
         </div>
     </header>
 
-    <!-- Conteúdo Principal com Estrutura de Grid (Corpo + Barra Lateral) -->
     <div class="main-content-area container mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-            <!-- Coluna Principal para o conteúdo da página -->
             <main role="main" class="lg:col-span-9">
                 @Body
             </main>
 
-            <!-- Coluna Lateral: Pode ser um componente NavMenu ou conteúdo estático do layout -->
+
             <aside class="lg:col-span-3 space-y-8">
-                <!-- Widget de Busca -->
                 <div class="widget p-6 rounded-xl shadow-lg">
                     <h3 class="text-lg font-semibold widget-title mb-3">Buscar no Fórum</h3>
                     <form class="flex">
                         <input type="search" placeholder="Digite sua busca..." class="w-full px-4 py-2 border search-input rounded-l-lg focus:ring-2 outline-none transition">
                         <button type="submit" class="search-button px-4 py-2 rounded-r-lg font-semibold transition">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
-                                <path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11ZM2 9a7 7 0 1 1 12.452 4.391l3.328 3.329a.75.75 0 1 1-1.06 1.06l-3.329-3.328A7 7 0 0 1 2 9Z" clip-rule="evenodd" />
-                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5"><path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11ZM2 9a7 7 0 1 1 12.452 4.391l3.328 3.329a.75.75 0 1 1-1.06 1.06l-3.329-3.328A7 7 0 0 1 2 9Z" clip-rule="evenodd" /></svg>
                         </button>
                     </form>
                 </div>
-
-                <!-- Widget de Categorias -->
                 <div class="widget p-6 rounded-xl shadow-lg">
                     <h3 class="text-lg font-semibold widget-title mb-4">Categorias</h3>
                     <ul class="space-y-2">
@@ -72,8 +90,6 @@
                         <li><NavLink href="/category/eventos-oportunidades" class="category-nav-link block px-3 py-2 category-link rounded-md transition">Eventos e Oportunidades</NavLink></li>
                     </ul>
                 </div>
-
-                <!-- Widget "Sobre Athena's Archive" -->
                 <div class="widget p-6 rounded-xl shadow-lg">
                     <h3 class="text-lg font-semibold widget-title mb-3">Sobre Athena's Archive</h3>
                     <p class="text-sm paragraph-text leading-relaxed">
@@ -84,15 +100,13 @@
         </div>
     </div>
 
+
     <footer class="footer-main py-12 mt-auto">
-        @* mt-auto para ajudar o footer a ficar no final *@
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <div class="mb-4">
                 <NavLink href="/" class="flex items-center justify-center space-x-2 text-xl font-semibold">
                     <div class="logo-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-7 h-7">
-                            <path d="M11.25 4.533A9.707 9.707 0 0 0 6 3a9.735 9.735 0 0 0-3.25.555.75.75 0 0 0-.5.707v14.522c0 .318.22.6.512.707a9.733 9.733 0 0 0 3.238.555A9.707 9.707 0 0 0 11.25 21a9.707 9.707 0 0 0 5.25-1.533A9.735 9.735 0 0 0 19.5 21a9.735 9.735 0 0 0 3.25-.555.75.75 0 0 0 .5-.707V4.262a.75.75 0 0 0-.5-.707A9.733 9.733 0 0 0 19.5 3a9.707 9.707 0 0 0-5.25 1.533Z" />
-                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-7 h-7"><path d="M11.25 4.533A9.707 9.707 0 0 0 6 3a9.735 9.735 0 0 0-3.25.555.75.75 0 0 0-.5.707v14.522c0 .318.22.6.512.707a9.733 9.733 0 0 0 3.238.555A9.707 9.707 0 0 0 11.25 21a9.707 9.707 0 0 0 5.25-1.533A9.735 9.735 0 0 0 19.5 21a9.735 9.735 0 0 0 3.25-.555.75.75 0 0 0 .5-.707V4.262a.75.75 0 0 0-.5-.707A9.733 9.733 0 0 0 19.5 3a9.707 9.707 0 0 0-5.25 1.533Z" /></svg>
                     </div>
                     <span>Athena's Archive</span>
                 </NavLink>
@@ -119,5 +133,12 @@
     private void CloseMobileMenu()
     {
         _isMobileMenuOpen = false;
+    }
+
+    private async Task Logout()
+    {
+        await JSRuntime.InvokeVoidAsync("localStorage.removeItem", "authToken");
+        ((CustomAuthenticationStateProvider)AuthStateProvider).NotifyUserLogout();
+        Navigation.NavigateTo("/");
     }
 }
