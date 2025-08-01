@@ -45,13 +45,13 @@ public class ApplicationDbContext : DbContext
             entity.HasOne(e => e.RespostaPai)
                   .WithMany(e => e.RespostasFilhas)
                   .HasForeignKey(e => e.RespostaPaiId)
-                  .OnDelete(DeleteBehavior.Restrict); // Avoid cascade delete issues
+                  .OnDelete(DeleteBehavior.Restrict); 
         });
 
         // --- TopicoTag Configuration (Many-to-Many Composite Key) ---
         modelBuilder.Entity<TopicoTag>(entity =>
         {
-            entity.HasKey(tt => new { tt.TopicoId, tt.TagId }); // Composite Key
+            entity.HasKey(tt => new { tt.TopicoId, tt.TagId }); 
 
             entity.HasOne(tt => tt.Topico)
                   .WithMany(t => t.TopicoTags)
@@ -89,7 +89,7 @@ public class ApplicationDbContext : DbContext
                 DataCriacao = seedDate,
                 Ativo = true,
                 Banido = false,
-                RoleId = 3 // Admin
+                RoleId = 3 
             },
             new Usuario
             {
@@ -100,7 +100,7 @@ public class ApplicationDbContext : DbContext
                 DataCriacao = seedDate,
                 Ativo = true,
                 Banido = false,
-                RoleId = 1 // Aluno
+                RoleId = 1 
             }
         );
 
@@ -112,8 +112,8 @@ public class ApplicationDbContext : DbContext
                 Titulo = "Dúvida sobre ponteiros em C++",
                 Conteudo = "Olá pessoal, estou com dificuldade para entender como funcionam os ponteiros para ponteiros em C++. Alguém poderia me dar uma luz?",
                 DataCriacao = seedDate,
-                UsuarioId = 2, // Criado pelo "Aluno Teste"
-                CategoriaId = 1 // Na categoria "Programação"
+                UsuarioId = 2, 
+                CategoriaId = 1 
             }
         );
 
@@ -124,9 +124,9 @@ public class ApplicationDbContext : DbContext
                 Id = 1,
                 Conteudo = "Claro! Um ponteiro para ponteiro armazena o endereço de memória de outro ponteiro. Pense nele como um 'índice' para seus 'índices' de memória.",
                 DataCriacao = seedDate,
-                UsuarioId = 1, // Respondido pelo "Admin User"
-                TopicoId = 1, // Resposta para o tópico acima
-                RespostaPaiId = null // É uma resposta direta ao tópico
+                UsuarioId = 1, 
+                TopicoId = 1,
+                RespostaPaiId = null 
             }
         );
     }

@@ -3,6 +3,7 @@
 @using Microsoft.AspNetCore.Components.Authorization
 @using athenas_archive.Auth
 @using athenas_archive.ViewModels
+@using System.Net.Http.Headers
 @inject HttpClient Http
 @inject NavigationManager Navigation
 @inject IJSRuntime JSRuntime
@@ -63,7 +64,6 @@
     private LoginViewModel loginModel = new();
     private string? errorMessage;
 
-    // Classe auxiliar para receber a resposta da API que contém o token
     private class LoginResponse
     {
         public string? Token { get; set; }

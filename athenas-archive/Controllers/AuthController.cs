@@ -7,7 +7,7 @@ namespace Controllers
     using athenas_archive.Entities;
     using athenas_archive.ViewModels;
     using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Identity; // Importante: Adicionar este using
+    using Microsoft.AspNetCore.Identity; 
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
 
@@ -46,12 +46,10 @@ namespace Controllers
                 Nome = registerViewModel.Nome,
                 Email = registerViewModel.Email,
                 DataCriacao = DateTime.UtcNow,
-                // Vamos assumir '1' como o ID do papel de usuário comum.
                 RoleId = 1
             };
 
             // 3. Fazer o hash da senha usando o PasswordHasher injetado
-            // O primeiro parâmetro (novoUsuario) é usado para futuras atualizações de segurança do hash.
             var senhaHash = _passwordHasher.HashPassword(novoUsuario, registerViewModel.Senha);
             novoUsuario.SenhaHash = senhaHash;
 
@@ -71,7 +69,6 @@ namespace Controllers
 
             if (usuario == null)
             {
-                // Usamos uma mensagem genérica para não informar a um potencial atacante se o e-mail existe ou não
                 return Unauthorized("Credenciais inválidas.");
             }
 
@@ -101,7 +98,7 @@ namespace Controllers
             }
 
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(jwtKey); // Agora usamos a variável validada
+            var key = Encoding.ASCII.GetBytes(jwtKey);
 
             var claims = new ClaimsIdentity(new[]
             {

@@ -35,15 +35,12 @@ builder.Services.AddAuthentication(options =>
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 });
 
-
 var jwtKey = builder.Configuration["Jwt:Key"];
-
 
 if (string.IsNullOrEmpty(jwtKey))
 {
     throw new InvalidOperationException("A chave secreta do JWT (Jwt:Key) não está configurada no appsettings.json");
 }
-
 
 builder.Services.AddAuthentication(options =>
 {

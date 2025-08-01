@@ -62,28 +62,28 @@
 
             if (keyValuePairs != null)
             {
-                // Pega o ID (sub)
-                keyValuePairs.TryGetValue(ClaimTypes.NameIdentifier, out object? id);
+                // Pega o ID (nameid) e cria a claim com o tipo padrão NameIdentifier
+                keyValuePairs.TryGetValue("nameid", out object? id);
                 if (id != null)
                 {
                     claims.Add(new Claim(ClaimTypes.NameIdentifier, id.ToString()!));
                 }
 
                 // Pega o Email
-                keyValuePairs.TryGetValue(ClaimTypes.Email, out object? email);
+                keyValuePairs.TryGetValue("email", out object? email);
                 if (email != null)
                 {
                     claims.Add(new Claim(ClaimTypes.Email, email.ToString()!));
                 }
 
                 // Pega o Papel (Role)
-                keyValuePairs.TryGetValue(ClaimTypes.Role, out object? role);
+                keyValuePairs.TryGetValue("role", out object? role);
                 if (role != null)
                 {
                     claims.Add(new Claim(ClaimTypes.Role, role.ToString()!));
                 }
 
-                // Pega o Nome
+                // Pega o Nome (unique_name) e cria a claim com o tipo padrão Name
                 keyValuePairs.TryGetValue("unique_name", out object? name);
                 if (name != null)
                 {
